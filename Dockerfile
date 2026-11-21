@@ -1,5 +1,5 @@
 # Builder container
-FROM registry.ci.openshift.org/ocp/builder:rhel-9-base-nodejs-openshift-5.0 AS build
+FROM registry.ci.openshift.org/ocp/builder:rhel-9-base-nodejs-openshift-5.1 AS build
 
 # Copy app source
 COPY . /opt/app-root/src/app
@@ -20,7 +20,7 @@ ENV CYPRESS_INSTALL_BINARY=0
 RUN npm clean-install --ignore-scripts --no-audit && npm run build
 
 # Web server container
-FROM registry.ci.openshift.org/ocp/5.0:base-rhel9
+FROM registry.ci.openshift.org/ocp/5.1:base-rhel9
 
 RUN INSTALL_PKGS="nginx" && \
     dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
